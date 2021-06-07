@@ -1,6 +1,7 @@
 defmodule SeniorSantaWeb.Router do
   use SeniorSantaWeb, :router
-  use Kaffy.Routes #, scope: "/admin", pipe_through: [:some_plug, :authenticate]
+  # , scope: "/admin", pipe_through: [:some_plug, :authenticate]
+  use Kaffy.Routes
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -18,7 +19,8 @@ defmodule SeniorSantaWeb.Router do
   scope "/", SeniorSantaWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/letters", LetterLive.Index
+    live "/letters/:letter_id", LetterLive.Show
   end
 
   # Other scopes may use custom stacks.
@@ -38,11 +40,14 @@ defmodule SeniorSantaWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: SeniorSantaWeb.Telemetry, ecto_repos: [SeniorSanta.Repo]
+
+      live_dashboard "/dashboard",
+        metrics: SeniorSantaWeb.Telemetry,
+        ecto_repos: [SeniorSanta.Repo]
     end
   end
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 end

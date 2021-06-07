@@ -42,11 +42,11 @@
                     <%= letter.status %>
                   </span>
                 </td>
-                <%= if (letter.status != "zarezerwowany") do %> 
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Zobacz</a>
+                    <%= if (letter.status != "zarezerwowany") do %> 
+                      <%= live_redirect "Zobacz", to: Routes.live_path(@socket, SeniorSantaWeb.LetterLive.Show, letter) %> 
+                    <% end %>
                   </td>
-                <% end %>
               </tr>
             <% end %>
           </tbody>

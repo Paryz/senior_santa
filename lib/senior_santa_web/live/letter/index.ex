@@ -1,4 +1,4 @@
-defmodule SeniorSantaWeb.PageLive do
+defmodule SeniorSantaWeb.LetterLive.Index do
   use SeniorSantaWeb, :live_view
 
   alias SeniorSanta.Models.Letter
@@ -12,6 +12,7 @@ defmodule SeniorSantaWeb.PageLive do
   defp find_letters(city) do
     [
       %Letter{
+        id: 1,
         author: "Janina",
         content: "file",
         currently_watching: 4,
@@ -19,6 +20,7 @@ defmodule SeniorSantaWeb.PageLive do
         status: "aktywny"
       },
       %Letter{
+        id: 2,
         author: "Barbara",
         content: "file",
         currently_watching: 0,
@@ -26,6 +28,7 @@ defmodule SeniorSantaWeb.PageLive do
         status: "zarezerwowany"
       },
       %Letter{
+        id: 3,
         author: "Anna",
         content: "file",
         currently_watching: 5,
