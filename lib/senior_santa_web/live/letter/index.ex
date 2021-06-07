@@ -1,7 +1,7 @@
 defmodule SeniorSantaWeb.LetterLive.Index do
   use SeniorSantaWeb, :live_view
 
-  alias SeniorSanta.Models.Letter
+  alias SeniorSanta.Reservations.Models.Letter
 
   @impl true
   def mount(params, _session, socket) do
