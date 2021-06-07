@@ -23,6 +23,7 @@ defmodule SeniorSantaWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import SeniorSantaWeb.ConnCase
+      import SeniorSanta.Factory
 
       alias SeniorSantaWeb.Router.Helpers, as: Routes
 

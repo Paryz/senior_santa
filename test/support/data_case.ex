@@ -24,6 +24,7 @@ defmodule SeniorSanta.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import SeniorSanta.DataCase
+      import SeniorSanta.Factory
     end
   end
 

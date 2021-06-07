@@ -1,5 +1,6 @@
 defmodule SeniorSanta.MixProject do
   use Mix.Project
+
   def project do
     [
       app: :senior_santa,
@@ -12,6 +13,7 @@ defmodule SeniorSanta.MixProject do
       deps: deps()
     ]
   end
+
   # Configuration for the OTP application.
   #
   # Type `mix help compile.app` for more information.
@@ -21,6 +23,7 @@ defmodule SeniorSanta.MixProject do
       extra_applications: [:logger, :runtime_tools]
     ]
   end
+
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
@@ -31,10 +34,9 @@ defmodule SeniorSanta.MixProject do
     [
       # Kaffy administration
       {:kaffy, "~> 0.9.0"},
-
       {:phoenix, "~> 1.5.7"},
       {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.4"},
+      {:ecto_sql, "~> 3.5"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_live_view, "~> 0.15.0"},
       {:phoenix_html, "~> 2.11"},
@@ -45,6 +47,9 @@ defmodule SeniorSanta.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:fe, "~> 0.1.2"},
+      {:data, "~> 0.4.5"},
       # Additional packages
 
       # Oban for background jobs
@@ -65,9 +70,10 @@ defmodule SeniorSanta.MixProject do
       {:sweet_xml, "~> 0.6"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.8", only: :dev},
-      {:ecto_psql_extras, "~> 0.2"},
+      {:ecto_psql_extras, "~> 0.2"}
     ]
   end
+
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, to install project dependencies and perform other setup tasks, run:
   #
