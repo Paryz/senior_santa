@@ -24,5 +24,9 @@ defmodule SeniorSanta.Reservations.Models.Letter do
       __MODULE__,
       input
     )
+    |> FE.Result.map(fn struct ->
+      content_url = SeniorSanta.LetterUploader.url({struct.content, struct})
+      Map.put(struct, :content, content_url)
+    end)
   end
 end

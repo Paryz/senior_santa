@@ -12,7 +12,7 @@ defmodule SeniorSanta.Reservations.Services.LetterTest do
     end
 
     test "letter found" do
-      %{id: letter_id} = insert(:letter, location: "Kielce", content: "kielce")
+      %{id: letter_id} = insert(:letter, location: "Kielce", author: "John")
 
       assert {:ok, %Models.Letter{id: ^letter_id}} = Letter.get(letter_id)
     end

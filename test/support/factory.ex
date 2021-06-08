@@ -7,7 +7,7 @@ defmodule SeniorSanta.Factory do
     %Letter{
       id: Ecto.UUID.generate(),
       location: "Warszawa",
-      content: "content",
+      content: "filename.jpeg",
       author: "Helena",
       status: :aktywny
     }

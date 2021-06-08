@@ -10,10 +10,10 @@ defmodule SeniorSanta.Reservations.IO.LettersTest do
     end
 
     test "letters found" do
-      insert(:letter, location: "Kielce", content: "kielce")
-      insert(:letter, location: "Warszawa", content: "warszawa")
+      insert(:letter, location: "Kielce", author: "John")
+      insert(:letter, location: "Warszawa", author: "Benny")
 
-      assert {:ok, [%Models.Letter{content: "kielce"}]} = Letters.get_all_by_location("Kielce")
+      assert {:ok, [%Models.Letter{author: "John"}]} = Letters.get_all_by_location("Kielce")
     end
   end
 
@@ -25,7 +25,7 @@ defmodule SeniorSanta.Reservations.IO.LettersTest do
     end
 
     test "letter found" do
-      %{id: letter_id} = insert(:letter, location: "Kielce", content: "kielce")
+      %{id: letter_id} = insert(:letter, location: "Kielce", author: "John")
 
       assert {:just, %Models.Letter{id: ^letter_id}} = Letters.get(letter_id)
     end

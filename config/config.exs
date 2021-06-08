@@ -26,9 +26,8 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :waffle,
-  # or Waffle.Storage.Local
-  storage: Waffle.Storage.S3,
-  # if using S3
+  storage: Waffle.Storage.Local,
+  # storage: Waffle.Storage.S3,
   bucket: System.get_env("AWS_BUCKET_NAME")
 
 # If using S3:

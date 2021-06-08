@@ -5,19 +5,19 @@ defmodule SeniorSanta.Reservations.Models.LetterTest do
 
   describe "new/1" do
     test "builds new model struct from ecto struct" do
-      letter = insert(:letter, author: "Kamil", content: "contento")
+      letter = insert(:letter, author: "Kamil")
 
-      assert {:ok, %Letter{author: "Kamil", content: "contento"}} = Letter.new(letter)
+      assert {:ok, %Letter{author: "Kamil"}} = Letter.new(letter)
     end
 
     test "builds model struct from valid params" do
-      letter = params_for(:letter, author: "Kamil", content: "contento")
+      letter = params_for(:letter, author: "Kamil")
 
-      assert {:ok, %Letter{author: "Kamil", content: "contento"}} = Letter.new(letter)
+      assert {:ok, %Letter{author: "Kamil"}} = Letter.new(letter)
     end
 
     test "returns errors when wrong params" do
-      letter = params_for(:letter, author: 1, content: "contento")
+      letter = params_for(:letter, author: 1)
 
       assert {:error,
               %Error.DomainError{
@@ -39,7 +39,7 @@ defmodule SeniorSanta.Reservations.Models.LetterTest do
                 details: %{field: :content, input: _}
               }} = Letter.new(letter)
 
-      letter = params_for(:letter, author: "Kamil", content: "contento", location: 1)
+      letter = params_for(:letter, author: "Kamil", location: 1)
 
       assert {:error,
               %Error.DomainError{
@@ -53,7 +53,6 @@ defmodule SeniorSanta.Reservations.Models.LetterTest do
       letter =
         params_for(:letter,
           author: "Kamil",
-          content: "contento",
           location: "Warszawa",
           status: "string"
         )
