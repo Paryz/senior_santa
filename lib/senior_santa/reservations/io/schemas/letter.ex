@@ -5,7 +5,7 @@ defmodule SeniorSanta.Reservations.IO.Schemas.Letter do
     field(:location, :string)
     field(:content, :string)
     field(:author, :string)
-    field(:status, :string)
+    field(:status, Ecto.Enum, values: [:aktywny, :zarezerwowany])
 
     timestamps()
   end

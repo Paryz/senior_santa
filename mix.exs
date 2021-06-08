@@ -50,6 +50,7 @@ defmodule SeniorSanta.MixProject do
       {:ex_machina, "~> 2.7.0", only: :test},
       {:fe, "~> 0.1.2"},
       {:data, "~> 0.4.5"},
+      {:error, "~> 0.3.4"},
       # Additional packages
 
       # Oban for background jobs

@@ -6,14 +6,14 @@ defmodule SeniorSanta.Reservations.IO.LettersTest do
 
   describe "get_all_by_location/1" do
     test "no letters found" do
-      assert FE.Result.ok([]) == Letters.get_all_by_location(location: "Kielce")
+      assert FE.Result.ok([]) == Letters.get_all_by_location("Kielce")
     end
 
     test "letters found" do
       insert(:letter, location: "Kielce", content: "kielce")
+      insert(:letter, location: "Warszawa", content: "warszawa")
 
-      assert {:ok, [%Models.Letter{content: "kielce"}]} =
-               Letters.get_all_by_location(location: "Kielce")
+      assert {:ok, [%Models.Letter{content: "kielce"}]} = Letters.get_all_by_location("Kielce")
     end
   end
 end

@@ -10,6 +10,7 @@ defmodule SeniorSanta.Reservations.Models.Letter do
           status: String.t()
         }
 
+  @spec new(map()) :: Result.t(__MODULE__.t())
   def new(input) do
     Data.Constructor.struct(
       [
@@ -17,11 +18,18 @@ defmodule SeniorSanta.Reservations.Models.Letter do
         {:author, Data.Parser.BuiltIn.string()},
         {:content, Data.Parser.BuiltIn.string()},
         {:location, Data.Parser.BuiltIn.string()},
-        {:status, Data.Parser.BuiltIn.string()}
+        {:status, atom()}
         # {:currently_watching, Data.Parser.BuiltIn.integer()}
       ],
       __MODULE__,
       input
     )
+  end
+
+  def atom do
+    fn
+      atom when is_atom(atom) -> FE.Result.ok(atom)
+      _other -> Error.domain(:not_an_atom) |> FE.Result.error()
+    end
   end
 end

@@ -7,13 +7,12 @@ defmodule SeniorSanta.Reservations.IO.Letters do
   alias SeniorSanta.Reservations.IO.Schemas
   alias SeniorSanta.Reservations.Models
 
-  @spec get_all_by_location(keyword()) :: Result.t(Models.Letter.t())
-  def get_all_by_location(list) do
+  @spec get_all_by_location(String.t()) :: Result.t(Models.Letter.t())
+  def get_all_by_location(location) do
     Schemas.Letter
-    |> where(^list)
+    |> where(location: ^location)
     |> Repo.all()
-    |> Enum.map(&Models.Letter.new/1)
-    |> Enum.map(&Result.unwrap!(&1))
+    |> Enum.map(fn letter -> letter |> Models.Letter.new() |> Result.unwrap!() end)
     |> Result.ok()
   end
 end

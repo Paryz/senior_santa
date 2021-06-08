@@ -8,7 +8,7 @@ defmodule SeniorSanta.Factory do
       location: "Warszawa",
       content: "content",
       author: "Helena",
-      status: "aktywny"
+      status: :aktywny
     }
   end
 end
