@@ -1,6 +1,6 @@
 defmodule SeniorSanta.Reservations.IO.Letters do
   import Ecto.Query
-  alias FE.Result
+  alias FE.{Maybe, Result}
 
   alias SeniorSanta.Repo
 
@@ -14,5 +14,13 @@ defmodule SeniorSanta.Reservations.IO.Letters do
     |> Repo.all()
     |> Enum.map(fn letter -> letter |> Models.Letter.new() |> Result.unwrap!() end)
     |> Result.ok()
+  end
+
+  @spec get(binary()) :: Maybe.t(Models.Letter.t())
+  def get(id) do
+    Schemas.Letter
+    |> Repo.get(id)
+    |> Maybe.new()
+    |> Maybe.map(fn letter -> letter |> Models.Letter.new() |> Result.unwrap!() end)
   end
 end

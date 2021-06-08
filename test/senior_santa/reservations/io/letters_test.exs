@@ -16,4 +16,18 @@ defmodule SeniorSanta.Reservations.IO.LettersTest do
       assert {:ok, [%Models.Letter{content: "kielce"}]} = Letters.get_all_by_location("Kielce")
     end
   end
+
+  describe "get/1" do
+    test "no letter found" do
+      id = Ecto.UUID.generate()
+
+      assert FE.Maybe.nothing() == Letters.get(id)
+    end
+
+    test "letter found" do
+      %{id: letter_id} = insert(:letter, location: "Kielce", content: "kielce")
+
+      assert {:just, %Models.Letter{id: ^letter_id}} = Letters.get(letter_id)
+    end
+  end
 end

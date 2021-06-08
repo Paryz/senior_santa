@@ -1,21 +1,14 @@
 defmodule SeniorSantaWeb.LetterLive.Show do
   use SeniorSantaWeb, :live_view
+  alias FE.Result
 
-  alias SeniorSanta.Reservations.Models.Letter
+  alias SeniorSanta.Reservations.Services
 
   @impl true
   def mount(params, _session, socket) do
-    IO.inspect(params)
-    {:ok, assign(socket, :letter, letter())}
-  end
-
-  defp letter() do
-    %Letter{
-      author: "Janina",
-      content: "file",
-      currently_watching: 4,
-      location: "Warszawa",
-      status: "aktywny"
-    }
+    params
+    |> Map.get("letter_id", Ecto.UUID.generate())
+    |> Services.Letter.get()
+    |> Result.map(&assign(socket, :letter, &1))
   end
 end
