@@ -5,6 +5,7 @@ defmodule SeniorSanta.Factory do
 
   def letter_factory() do
     %Letter{
+      id: Ecto.UUID.generate(),
       location: "Warszawa",
       content: "content",
       author: "Helena",

@@ -2,7 +2,7 @@ defmodule SeniorSanta.Reservations.Models.Letter do
   defstruct [:id, :author, :content, :currently_watching, :location, :status]
 
   @type t :: %__MODULE__{
-          id: integer(),
+          id: String.t(),
           author: String.t(),
           content: String.t(),
           currently_watching: integer(),
@@ -14,22 +14,15 @@ defmodule SeniorSanta.Reservations.Models.Letter do
   def new(input) do
     Data.Constructor.struct(
       [
-        {:id, Data.Parser.BuiltIn.integer()},
+        {:id, Data.Parser.BuiltIn.string()},
         {:author, Data.Parser.BuiltIn.string()},
         {:content, Data.Parser.BuiltIn.string()},
         {:location, Data.Parser.BuiltIn.string()},
-        {:status, atom()}
+        {:status, Data.Parser.BuiltIn.atom()}
         # {:currently_watching, Data.Parser.BuiltIn.integer()}
       ],
       __MODULE__,
       input
     )
-  end
-
-  def atom do
-    fn
-      atom when is_atom(atom) -> FE.Result.ok(atom)
-      _other -> Error.domain(:not_an_atom) |> FE.Result.error()
-    end
   end
 end

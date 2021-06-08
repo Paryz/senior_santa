@@ -49,7 +49,7 @@ defmodule SeniorSanta.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:ex_machina, "~> 2.7.0", only: :test},
       {:fe, "~> 0.1.2"},
-      {:data, "~> 0.4.5"},
+      {:data, git: "https://github.com/Paryz/data.git", ref: "add-support-for-builtin-atom-type"},
       {:error, "~> 0.3.4"},
       # Additional packages
 
