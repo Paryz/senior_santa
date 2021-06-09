@@ -1,58 +1,88 @@
 <section>
-  <div class="flex flex-col text-center">
-  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Autor
-              </th>
-              <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Liczba obserwująych
-              </th>
-              <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th scope="col" class="relative px-6 py-3">
-                <span class="sr-only">Zobacz</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <%= for letter <- @letters do %>
+  <div class="flex flex-row text-center">
+    <div class="w-2/3 -my-2 overflow-x-auto">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="ml-4">
-                      <div class="text-sm font-medium text-gray-900">
-                        <%= letter.author %>
+                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Autor
+                </th>
+                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Liczba obserwująych
+                </th>
+                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <%= for letter <- @letters do %>
+                <tr phx-click="select" phx-value-letter_id="<%= letter.id %>" class="cursor-pointer hover:bg-gray-50 <%= if (letter.id == @letter.id), do: "bg-yellow-50" %>">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          <%= letter.author %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-500">
-                    <%= letter.currently_watching %>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= if (letter.status == :zarezerwowany), do: "bg-red-100 text-red-800", else:  "bg-green-100 text-green-800" %>">
-                    <%= letter.status %>
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <%= if (letter.status != :zarezerwowany) do %> 
-                    <%= live_redirect "Zobacz", to: Routes.live_path(@socket, SeniorSantaWeb.LetterLive.Show, letter) %> 
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">
+                      <%= letter.currently_watching %>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= if (letter.status == :zarezerwowany), do: "bg-red-100 text-red-800", else:  "bg-green-100 text-green-800" %>">
+                      <%= letter.status %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+    <%= if not is_nil(@letter) do %>
+      <div class="w-1/3 flex flex-col text-center items-center">
+        <div class="bg-gray-100 sm:rounded-lg px-8 py-2 mb-2">
+          <%= @letter.author %>
+        </div>
+        <div>
+          <img src="<%= @letter.content %>">
+        </div>
+        <%= if @letter.status != :zarezerwowany do %>
+          <div class="mt-6" x-data="{ open: false }">
+            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" @click="open = true">Zarezerwuj</button>
+            <div class="fixed z-1 w-full h-full top-0 left-0 flex items-center justify-center" x-cloak x-show="open">
+              <div class="fixed w-full h-full bg-gray-500 opacity-50"></div>
+              <div class="relative z-2 w-3/12 bg-white p-8 mx-auto rounded-xl flex flex-col items-center" @click.away="open = false">
+                <%= f = form_for @reservation, "#", [phx_change: :validate, phx_submit: :save, class: "w-full max-w-lg"] %>
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                      <%= label f, :username, "Imię", class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                      <%= text_input f, :username, class: "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", placeholder: "Jane" %>
+                      <%= error_tag f, :username %>
+                    </div>
+                    <div class="w-full md:w-1/2 px-3">
+                      <%= label f, :email, "Email", class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                      <%= text_input f, :email, class: "appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", placeholder: "john@doe.com" %>
+                      <%= error_tag f, :email %>
+                    </div>
+                  </div>
+                  <div class="flex flex-wrap -mx-3 mb-6 justify-evenly">
+                    <div class="w-full md:w-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-6 cursor-pointer" @click="open = false">Zamknij</div>
+                    <%= submit "Rezerwuj", class: "w-full md:w-1/3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-6" %>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-</div>
 </section>
