@@ -3,7 +3,7 @@ defmodule SeniorSanta.Reservations.Services.Letter do
 
   alias SeniorSanta.Reservations.IO
 
-  defdelegate get_all_by_location(location), to: IO.Letters
+  defdelegate get_all_by_location(location), to: IO.Letter
 
-  def get(id), do: id |> IO.Letters.get() |> Maybe.to_result(:not_found)
+  def get(id), do: id |> IO.Letter.get() |> Maybe.to_result(:not_found)
 end

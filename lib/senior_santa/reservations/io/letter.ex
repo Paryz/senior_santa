@@ -1,4 +1,4 @@
-defmodule SeniorSanta.Reservations.IO.Letters do
+defmodule SeniorSanta.Reservations.IO.Letter do
   import Ecto.Query
   alias FE.{Maybe, Result}
 
