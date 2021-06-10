@@ -62,7 +62,11 @@ defmodule SeniorSanta.Reservations.Models.LetterTest do
                 reason: :failed_to_parse_field,
                 caused_by:
                   {:just,
-                   %Error.DomainError{caused_by: :nothing, details: %{}, reason: :not_an_atom}},
+                   %Error.DomainError{
+                     caused_by: :nothing,
+                     details: %{},
+                     reason: :status_is_not_valid
+                   }},
                 details: %{field: :status, input: _}
               }} = Letter.new(letter)
     end

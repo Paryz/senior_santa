@@ -7,7 +7,7 @@ defmodule SeniorSanta.Reservations.Models.Letter do
           content: String.t(),
           currently_watching: integer(),
           location: String.t(),
-          status: String.t()
+          status: atom()
         }
 
   @spec new(map()) :: Result.t(__MODULE__.t())
@@ -18,7 +18,7 @@ defmodule SeniorSanta.Reservations.Models.Letter do
         {:author, Data.Parser.BuiltIn.string()},
         {:content, Data.Parser.BuiltIn.string()},
         {:location, Data.Parser.BuiltIn.string()},
-        {:status, Data.Parser.BuiltIn.atom()}
+        {:status, SeniorSanta.Parsers.status_parser()}
         # {:currently_watching, Data.Parser.BuiltIn.integer()}
       ],
       __MODULE__,
