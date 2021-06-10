@@ -33,7 +33,7 @@ defmodule SeniorSanta.Reservations.Models.Letter do
   end
 
   @valid_statuses [:zarezerwowany, :aktywny]
-  def status_parser() do
+  defp status_parser() do
     fn
       status when is_atom(status) and status in @valid_statuses ->
         Result.ok(status)
