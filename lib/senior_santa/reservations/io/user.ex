@@ -8,7 +8,7 @@ defmodule SeniorSanta.Reservations.IO.User do
 
   @spec create(Models.User.t()) :: Result.t(Models.User.t())
   def create(%Models.User{} = user) do
-    %Schemas.User{id: Ecto.UUID.generate()}
+    %Schemas.User{}
     |> Ecto.Changeset.change(Map.from_struct(user))
     |> Repo.insert()
     |> Result.map(fn _ -> user end)
