@@ -1,6 +1,8 @@
 defmodule SeniorSanta.Reservations.IO.Schemas.User do
   use Ecto.Schema
 
+  alias SeniorSanta.Reservations.IO.Schemas
+
   @primary_key {:id, Ecto.UUID, autogenerate: true}
   schema "users" do
     field(:name, :string)
@@ -10,6 +12,7 @@ defmodule SeniorSanta.Reservations.IO.Schemas.User do
     field(:date_of_birth, :utc_datetime)
     field(:gender, Ecto.Enum, values: [:female, :male, :other])
 
+    has_many(:reservations, Schemas.Reservation)
     timestamps()
   end
 end
