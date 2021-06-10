@@ -44,7 +44,7 @@ defmodule SeniorSanta.Reservations.Services.UserTest do
     end
 
     test "params are valid" do
-      assert {:ok, %Models.User{id: user_id}} = User.create(@valid_params)
+      assert {:ok, %Models.User{id: {:just, user_id}}} = User.create(@valid_params)
       assert %Schemas.User{} = SeniorSanta.Repo.get(Schemas.User, user_id)
     end
   end

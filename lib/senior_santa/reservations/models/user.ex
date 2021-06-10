@@ -1,10 +1,12 @@
 defmodule SeniorSanta.Reservations.Models.User do
   defstruct [:id, :name, :email, :city, :phone, :date_of_birth, :gender]
 
+  alias FE.Maybe
+
   alias SeniorSanta.Validators
 
   @type t :: %__MODULE__{
-          id: String.t(),
+          id: Maybe.t(String.t()),
           name: String.t(),
           email: String.t(),
           city: String.t(),
@@ -17,7 +19,7 @@ defmodule SeniorSanta.Reservations.Models.User do
   def new(input) do
     Data.Constructor.struct(
       [
-        {:id, Data.Parser.BuiltIn.string()},
+        {:id, Data.Parser.BuiltIn.string(), optional: true},
         {:name, Data.Parser.BuiltIn.string()},
         {:email, Data.Parser.predicate(&Validators.email_valid?/1)},
         {:city, Data.Parser.BuiltIn.string()},

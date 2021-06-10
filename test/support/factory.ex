@@ -15,7 +15,6 @@ defmodule SeniorSanta.Factory do
 
   def user_factory() do
     %User{
-      id: Ecto.UUID.generate(),
       name: "John Doe",
       email: "john@doe.com",
       city: "Kielce",

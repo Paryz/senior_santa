@@ -11,9 +11,16 @@ defmodule SeniorSanta.Reservations.Models.UserTest do
     end
 
     test "builds model struct from valid params" do
-      user = params_for(:user, name: "Johnny Bravo")
+      valid_params = %{
+        "gender" => "male",
+        "phone" => "+48555444333",
+        "email" => "email@email.com",
+        "city" => "Warszawa",
+        "name" => "Forest Gump",
+        "date_of_birth" => "1998-01-03 08:00:00Z"
+      }
 
-      assert {:ok, %User{name: "Johnny Bravo"}} = User.new(user)
+      assert {:ok, %User{name: "Forest Gump"}} = User.new(valid_params)
     end
 
     test "returns errors when wrong params" do
