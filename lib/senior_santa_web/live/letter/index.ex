@@ -15,7 +15,7 @@ defmodule SeniorSantaWeb.LetterLive.Index do
       |> assign(:letter, List.first(letters))
       |> assign(
         :reservation,
-        Ecto.Changeset.change(%SeniorSanta.Reservations.IO.Schemas.Letter{})
+        Ecto.Changeset.change(%SeniorSanta.Reservations.IO.Schemas.Reservation{})
       )
     end)
   end
