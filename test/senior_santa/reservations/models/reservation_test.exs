@@ -25,10 +25,7 @@ defmodule SeniorSanta.Reservations.Models.ReservationTest do
     }
 
     test "builds model struct from valid params" do
-      %{
-        "user_id" => user_id,
-        "letter_id" => letter_id
-      } = @valid_params
+      %{"user_id" => user_id, "letter_id" => letter_id} = @valid_params
 
       assert {:ok, %Reservation{id: :nothing, user_id: ^user_id, letter_id: ^letter_id}} =
                Reservation.new(@valid_params)
