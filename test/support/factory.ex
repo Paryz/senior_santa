@@ -1,7 +1,7 @@
 defmodule SeniorSanta.Factory do
   use ExMachina.Ecto, repo: SeniorSanta.Repo
 
-  alias SeniorSanta.Reservations.IO.Schemas.{Letter, User}
+  alias SeniorSanta.Reservations.IO.Schemas.{Letter, Reservation, User}
 
   def letter_factory() do
     %Letter{
@@ -21,6 +21,13 @@ defmodule SeniorSanta.Factory do
       phone: "+48555444333",
       date_of_birth: "1989-07-08 08:00:00Z",
       gender: :male
+    }
+  end
+
+  def reservation_factory() do
+    %Reservation{
+      user_id: Ecto.UUID.generate(),
+      letter_id: Ecto.UUID.generate()
     }
   end
 end
