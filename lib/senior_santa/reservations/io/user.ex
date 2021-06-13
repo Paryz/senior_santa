@@ -14,7 +14,7 @@ defmodule SeniorSanta.Reservations.IO.User do
     |> Result.and_then(&Models.User.new/1)
   end
 
-  def create(_), do: Result.error(:conflict)
+  def create(_), do: :bad_request |> Error.domain() |> Result.error()
 
   defp drop_keys_with_nothing(user) do
     user

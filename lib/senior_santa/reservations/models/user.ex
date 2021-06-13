@@ -14,10 +14,10 @@ defmodule SeniorSanta.Reservations.Models.User do
           city: String.t(),
           phone: String.t(),
           gender: atom(),
-          date_of_birth: DateTime.t()
+          date_of_birth: Date.t()
         }
 
-  @spec new(map()) :: Result.t(__MODULE__.t())
+  @spec new(map()) :: Result.t(t())
   def new(input) do
     Data.Constructor.struct(
       [
@@ -26,7 +26,7 @@ defmodule SeniorSanta.Reservations.Models.User do
         {:email, Parser.predicate(&Validators.email_valid?/1)},
         {:city, Parser.BuiltIn.string()},
         {:phone, Parser.predicate(&Validators.polish_phone_number_valid?/1)},
-        {:date_of_birth, Parser.BuiltIn.datetime()},
+        {:date_of_birth, Parser.BuiltIn.date()},
         {:gender, gender_parser()}
       ],
       __MODULE__,

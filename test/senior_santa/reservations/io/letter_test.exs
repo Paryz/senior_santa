@@ -21,13 +21,13 @@ defmodule SeniorSanta.Reservations.IO.LetterTest do
     test "no letter found" do
       id = Ecto.UUID.generate()
 
-      assert FE.Maybe.nothing() == Letter.get(id)
+      assert {:error, %Error.DomainError{reason: :letter_not_found}} = Letter.get(id)
     end
 
     test "letter found" do
       %{id: letter_id} = insert(:letter, location: "Kielce", author: "John")
 
-      assert {:just, %Models.Letter{id: ^letter_id}} = Letter.get(letter_id)
+      assert {:ok, %Models.Letter{id: ^letter_id}} = Letter.get(letter_id)
     end
   end
 end

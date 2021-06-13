@@ -1,5 +1,5 @@
 defmodule SeniorSanta.Reservations.Models.Letter do
-  defstruct [:id, :author, :content, :currently_watching, :location, :status]
+  defstruct [:id, :author, :content, :location, :status]
 
   alias FE.Result
 
@@ -9,12 +9,12 @@ defmodule SeniorSanta.Reservations.Models.Letter do
           id: String.t(),
           author: String.t(),
           content: String.t(),
-          currently_watching: integer(),
+          # currently_watching: integer(),
           location: String.t(),
           status: atom()
         }
 
-  @spec new(map()) :: Result.t(__MODULE__.t())
+  @spec new(map()) :: Result.t(t())
   def new(input) do
     Data.Constructor.struct(
       [
@@ -32,6 +32,11 @@ defmodule SeniorSanta.Reservations.Models.Letter do
       content_url = SeniorSanta.LetterUploader.url({struct.content, struct})
       Map.put(struct, :content, content_url)
     end)
+  end
+
+  @spec update_status(t(), :zarezerwowany) :: Result.t(t())
+  def update_status(letter, new_status) do
+    letter |> Map.put(:status, new_status) |> new()
   end
 
   @valid_statuses [:zarezerwowany, :aktywny]

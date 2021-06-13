@@ -6,7 +6,7 @@ defmodule SeniorSanta.Reservations.IO.ReservationTest do
 
   describe "create/1" do
     test "params are not a Reservation Model" do
-      assert FE.Result.error(:conflict) == Reservation.create(%{})
+      assert {:error, %Error.DomainError{reason: :bad_request}} = Reservation.create(%{})
     end
 
     test "params are valid" do

@@ -9,7 +9,7 @@ defmodule SeniorSanta.Reservations.IO.Schemas.User do
     field(:email, :string)
     field(:city, :string)
     field(:phone, :string)
-    field(:date_of_birth, :utc_datetime)
+    field(:date_of_birth, :date)
     field(:gender, Ecto.Enum, values: [:female, :male, :other])
 
     has_many(:reservations, Schemas.Reservation)

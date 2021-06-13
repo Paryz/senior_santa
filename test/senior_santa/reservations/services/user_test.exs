@@ -12,7 +12,7 @@ defmodule SeniorSanta.Reservations.Services.UserTest do
       "email" => "email@email.com",
       "city" => "Warszawa",
       "name" => "Forest Gump",
-      "date_of_birth" => "1998-01-03 08:00:00Z"
+      "date_of_birth" => "1998-01-03"
     }
     test "params are wrong" do
       params = %{}

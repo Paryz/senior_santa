@@ -19,7 +19,7 @@ defmodule SeniorSanta.Factory do
       email: "john@doe.com",
       city: "Kielce",
       phone: "+48555444333",
-      date_of_birth: "1989-07-08 08:00:00Z",
+      date_of_birth: "1989-07-08",
       gender: :male
     }
   end

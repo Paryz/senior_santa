@@ -14,7 +14,7 @@ defmodule SeniorSanta.Reservations.IO.Reservation do
     |> Result.and_then(&Models.Reservation.new/1)
   end
 
-  def create(_), do: Result.error(:conflict)
+  def create(_), do: Error.domain(:bad_request) |> Result.error()
 
   defp drop_keys_with_nothing(reservation) do
     reservation

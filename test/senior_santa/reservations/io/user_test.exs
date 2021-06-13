@@ -6,7 +6,7 @@ defmodule SeniorSanta.Reservations.IO.UserTest do
 
   describe "create/1" do
     test "params are not a User Model" do
-      assert FE.Result.error(:conflict) == User.create(%{})
+      assert {:error, %Error.DomainError{reason: :bad_request}} = User.create(%{})
     end
 
     test "params are valid" do

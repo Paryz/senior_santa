@@ -32,7 +32,8 @@ defmodule SeniorSantaWeb.LetterLive.Index do
   end
 
   @impl true
-  def handle_event("save", _params, socket) do
+  def handle_event("save", params, socket) do
+    IO.inspect(params)
     {:noreply, socket}
   end
 end
