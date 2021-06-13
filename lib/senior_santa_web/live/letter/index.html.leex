@@ -9,9 +9,11 @@
                 <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Autor
                 </th>
+                  <!--
                 <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Liczba obserwująych
                 </th>
+                  -->
                 <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
@@ -29,11 +31,13 @@
                       </div>
                     </div>
                   </td>
+                  <!--
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-500">
-                      <%= letter.currently_watching %>
+                      <%= 0 #letter.currently_watching %>
                     </div>
                   </td>
+                  -->
                   <td class="px-6 py-4 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= if (letter.status == :zarezerwowany), do: "bg-red-100 text-red-800", else:  "bg-green-100 text-green-800" %>">
                       <%= letter.status %>
@@ -60,7 +64,7 @@
             <div class="fixed z-1 w-full h-full top-0 left-0 flex items-center justify-center" x-cloak x-show="open">
               <div class="fixed w-full h-full bg-gray-500 opacity-50"></div>
               <div class="relative z-2 w-7/12 max-w-3xl bg-white p-8 mx-auto rounded-xl flex flex-col items-center" @click.away="open = false">
-                <%= f = form_for @reservation, "#", [phx_change: :validate, phx_submit: :save, class: "w-full max-w-lg"] %>
+                <%= f = form_for @reservation, "#", [phx_submit: :save, class: "w-full max-w-lg"] %>
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                       <%= hidden_input f, :letter_id, value: @letter.id %>

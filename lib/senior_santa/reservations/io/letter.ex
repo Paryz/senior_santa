@@ -1,5 +1,5 @@
 defmodule SeniorSanta.Reservations.IO.Letter do
-  import Ecto.Query, only: [where: 2]
+  import Ecto.Query, only: [order_by: 2, where: 2]
   alias Ecto.Multi
 
   alias FE.Result
@@ -14,6 +14,7 @@ defmodule SeniorSanta.Reservations.IO.Letter do
   def get_all_by_location(location) do
     Schemas.Letter
     |> where(location: ^location)
+    |> order_by(asc: :status)
     |> Repo.all()
     |> Enum.map(fn letter -> letter |> Models.Letter.new() |> Result.unwrap!() end)
     |> Result.ok()
