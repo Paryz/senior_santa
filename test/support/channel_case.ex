@@ -1,4 +1,6 @@
 defmodule SeniorSantaWeb.ChannelCase do
+  alias Ecto.Adapters.SQL.Sandbox
+
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -29,10 +31,10 @@ defmodule SeniorSantaWeb.ChannelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SeniorSanta.Repo)
+    :ok = Sandbox.checkout(SeniorSanta.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(SeniorSanta.Repo, {:shared, self()})
+      Sandbox.mode(SeniorSanta.Repo, {:shared, self()})
     end
 
     :ok

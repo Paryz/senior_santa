@@ -3,6 +3,8 @@ defmodule SeniorSanta.Reservations.Models.User do
 
   alias FE.{Maybe, Result}
 
+  alias Data.Parser
+
   alias SeniorSanta.Validators
 
   @type t :: %__MODULE__{
@@ -19,12 +21,12 @@ defmodule SeniorSanta.Reservations.Models.User do
   def new(input) do
     Data.Constructor.struct(
       [
-        {:id, Data.Parser.BuiltIn.string(), optional: true},
-        {:name, Data.Parser.BuiltIn.string()},
-        {:email, Data.Parser.predicate(&Validators.email_valid?/1)},
-        {:city, Data.Parser.BuiltIn.string()},
-        {:phone, Data.Parser.predicate(&Validators.polish_phone_number_valid?/1)},
-        {:date_of_birth, Data.Parser.BuiltIn.datetime()},
+        {:id, Parser.BuiltIn.string(), optional: true},
+        {:name, Parser.BuiltIn.string()},
+        {:email, Parser.predicate(&Validators.email_valid?/1)},
+        {:city, Parser.BuiltIn.string()},
+        {:phone, Parser.predicate(&Validators.polish_phone_number_valid?/1)},
+        {:date_of_birth, Parser.BuiltIn.datetime()},
         {:gender, gender_parser()}
       ],
       __MODULE__,

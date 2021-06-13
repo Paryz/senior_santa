@@ -3,6 +3,8 @@ defmodule SeniorSanta.Reservations.Models.Letter do
 
   alias FE.Result
 
+  alias Data.Parser.BuiltIn
+
   @type t :: %__MODULE__{
           id: String.t(),
           author: String.t(),
@@ -16,10 +18,10 @@ defmodule SeniorSanta.Reservations.Models.Letter do
   def new(input) do
     Data.Constructor.struct(
       [
-        {:id, Data.Parser.BuiltIn.string()},
-        {:author, Data.Parser.BuiltIn.string()},
-        {:content, Data.Parser.BuiltIn.string()},
-        {:location, Data.Parser.BuiltIn.string()},
+        {:id, BuiltIn.string()},
+        {:author, BuiltIn.string()},
+        {:content, BuiltIn.string()},
+        {:location, BuiltIn.string()},
         {:status, status_parser()}
         # {:currently_watching, Data.Parser.BuiltIn.integer()}
       ],

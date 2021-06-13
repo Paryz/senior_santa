@@ -27,16 +27,12 @@ defmodule SeniorSantaWeb.LetterLive.Index do
   end
 
   @impl true
-  def handle_event("validate", params, socket) do
-    IO.inspect("validate")
-    IO.inspect(params)
+  def handle_event("validate", _params, socket) do
     {:noreply, socket}
   end
 
   @impl true
-  def handle_event("save", params, socket) do
-    IO.inspect("save")
-    IO.inspect(params)
+  def handle_event("save", _params, socket) do
     {:noreply, socket}
   end
 end
