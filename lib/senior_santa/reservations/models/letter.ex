@@ -9,7 +9,6 @@ defmodule SeniorSanta.Reservations.Models.Letter do
           id: String.t(),
           author: String.t(),
           content: String.t(),
-          # currently_watching: integer(),
           location: String.t(),
           status: atom()
         }
@@ -23,7 +22,6 @@ defmodule SeniorSanta.Reservations.Models.Letter do
         {:content, BuiltIn.string()},
         {:location, BuiltIn.string()},
         {:status, status_parser()}
-        # {:currently_watching, Data.Parser.BuiltIn.integer()}
       ],
       __MODULE__,
       input
