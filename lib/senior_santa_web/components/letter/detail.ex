@@ -1,57 +1,10 @@
-<section>
-  <div class="flex flex-row text-center">
-    <div class="sm:w-2/3 lg:w-1/2 -my-2 overflow-x-auto">
-      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Autor
-                </th>
-                  <!--
-                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Liczba obserwująych
-                </th>
-                  -->
-                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-              <%= for letter <- @letters do %>
-                <tr phx-click="select" phx-value-letter_id="<%= letter.id %>" class="cursor-pointer hover:bg-gray-50 <%= if (letter.id == @letter.id), do: "bg-yellow-50" %>">
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">
-                          <%= letter.author %>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <!--
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-500">
-                      <%= 0 #letter.currently_watching %>
-                    </div>
-                  </td>
-                  -->
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= if (letter.status == :zarezerwowany), do: "bg-red-100 text-red-800", else:  "bg-green-100 text-green-800" %>">
-                      <%= letter.status %>
-                    </span>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <%= if not is_nil(@letter) do %>
-      <div class="sm:w-1/3 lg:w-1/2 flex flex-col text-center items-center">
+defmodule SeniorSantaWeb.Components.Letter.Detail do
+  use SeniorSantaWeb, :live_component
+
+  @impl true
+  def render(assigns) do
+    ~L"""
+    <div class="sm:w-1/3 lg:w-1/2 flex flex-col text-center items-center">
         <div class="bg-gray-100 sm:rounded-lg px-8 py-2 mb-2">
           <%= @letter.author %>
         </div>
@@ -112,6 +65,7 @@
           </div>
         <% end %>
       </div>
-    <% end %>
-  </div>
-</section>
+
+    """
+  end
+end

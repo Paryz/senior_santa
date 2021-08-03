@@ -2,7 +2,22 @@ defmodule SeniorSantaWeb.LetterLive.Index do
   use SeniorSantaWeb, :live_view
   alias FE.Result
 
+  alias SeniorSantaWeb.Components.Letter
   alias SeniorSanta.Reservations.Services
+
+  @impl true
+  def render(assigns) do
+    ~L"""
+    <section>
+      <div class="flex flex-row text-center">
+        <%= live_component Letter.List, letters: @letters, letter: @letter %>
+        <%= if not is_nil(@letter) do %>
+          <%= live_component Letter.Detail, letter: @letter, reservation: @reservation %>
+        <% end %>
+      </div>
+    </section>
+    """
+  end
 
   @impl true
   def mount(params, _session, socket) do
