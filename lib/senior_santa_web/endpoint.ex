@@ -30,7 +30,7 @@ defmodule SeniorSantaWeb.Endpoint do
     at: "/",
     from: :senior_santa,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(assets fonts images favicon.ico robots.txt)
 
   plug Plug.Static, at: "/uploads", from: "uploads/"
 

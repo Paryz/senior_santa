@@ -1,5 +1,6 @@
 module.exports = {
   purge: [
+    "./js/**/*.js", 
     "../lib/**/*.eex",
     "../lib/**/*.leex",
     "../lib/**/*_view.ex",
@@ -7,7 +8,11 @@ module.exports = {
     "../lib/**/views/*.ex"
   ],
   mode: 'jit',
-  theme: {},
-  variants: {},
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
   plugins: []
 }
