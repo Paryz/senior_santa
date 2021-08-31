@@ -19,8 +19,8 @@ defmodule SeniorSantaWeb.Router do
   scope "/", SeniorSantaWeb do
     pipe_through :browser
 
-    live "/letters", LetterLive.Index
-    live "/letters/:letter_id", LetterLive.Show
+    live "/letters", LetterLive.Index, :render
+    live "/letters/:letter_id", LetterLive.Show, :render
   end
 
   # Other scopes may use custom stacks.

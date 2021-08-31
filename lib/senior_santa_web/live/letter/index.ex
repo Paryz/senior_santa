@@ -1,25 +1,24 @@
 defmodule SeniorSantaWeb.LetterLive.Index do
   use SeniorSantaWeb, :live_view
+  use Phoenix.Component
   alias FE.Result
 
   alias SeniorSantaWeb.Components.Letter
   alias SeniorSanta.Reservations.Services
 
-  @impl true
   def render(assigns) do
-    ~L"""
+    ~H"""
     <section>
       <div class="flex flex-row text-center">
-        <%= live_component Letter.List, letters: @letters, letter: @letter %>
+        <Letter.List.render letters={@letters} letter={@letter} />
         <%= if not is_nil(@letter) do %>
-          <%= live_component Letter.Detail, letter: @letter, reservation: @reservation %>
+          <Letter.Detail.render letter={@letter} reservation={@reservation} />
         <% end %>
       </div>
     </section>
     """
   end
 
-  @impl true
   def mount(params, _session, socket) do
     subscribe()
 
@@ -36,13 +35,11 @@ defmodule SeniorSantaWeb.LetterLive.Index do
     end)
   end
 
-  @impl true
   def handle_event("select", %{"letter_id" => letter_id}, socket) do
     {:ok, letter} = Services.Letter.get(letter_id)
     {:noreply, assign(socket, :letter, letter)}
   end
 
-  @impl true
   def handle_event("save", %{"reservation" => params}, socket) do
     with {:ok, letter} <- Services.Letter.reserve(params) do
       broadcast(letter, [:letter, :updated])
@@ -50,7 +47,6 @@ defmodule SeniorSantaWeb.LetterLive.Index do
     end
   end
 
-  @impl true
   def handle_info({SeniorSantaWeb.LetterLive.Index, [:letter, _], _}, socket) do
     with {:ok, letters} <- fetch_all_letters(%{"location" => socket.assigns[:letter].location}) do
       {:noreply, assign(socket, :letters, letters)}
