@@ -14,6 +14,7 @@ defmodule SeniorSanta.Reservations.IO.Letter do
   def get_all_by_location(location) do
     Schemas.Letter
     |> where(location: ^location)
+    |> where(status: :aktywny)
     |> order_by(asc: :status)
     |> Repo.all()
     |> Enum.map(fn letter -> letter |> Models.Letter.new() |> Result.unwrap!() end)
