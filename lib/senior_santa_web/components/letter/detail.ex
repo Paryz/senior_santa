@@ -19,7 +19,7 @@ defmodule SeniorSantaWeb.Components.Letter.Detail do
             <% end %>
             <%= if LetterBlocker.blocked_by_me?(@letter_blocker, @letter.id, @socket_id) do %>
             <div class="fixed z-1 w-full h-full top-0 left-0 flex items-center justify-center">
-              <div class="fixed w-full h-full bg-gray-500 opacity-50"></div>
+              <div phx-click="unblock" phx-value-letter_id={@letter.id} class="fixed w-full h-full bg-gray-500 opacity-50"></div>
               <div class="relative z-2 w-7/12 max-w-3xl bg-white p-8 mx-auto rounded-xl flex flex-col items-center" >
                 <.form let={f} for={@reservation} url="#" phx_submit="save" class="w-full max-w-lg" phx_update="ignore">
                   <div class="flex flex-wrap -mx-3 mb-6">
