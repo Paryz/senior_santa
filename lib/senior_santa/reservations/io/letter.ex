@@ -10,7 +10,7 @@ defmodule SeniorSanta.Reservations.IO.Letter do
   alias SeniorSanta.Reservations.IO.Schemas
   alias SeniorSanta.Reservations.Models
 
-  @spec get_all_by_location(String.t()) :: Result.t(Models.Letter.t())
+  @spec get_all_by_location(String.t()) :: Result.t([Models.Letter.t()])
   def get_all_by_location(location) do
     Schemas.Letter
     |> where(location: ^location)

@@ -38,6 +38,10 @@ defmodule SeniorSanta.Reservations.Services.LetterBlocker do
     end
   end
 
+  def unblock_all_user_timers(socket_id) do
+    GenServer.cast(__MODULE__, {:unblock_all_user_timers, socket_id})
+  end
+
   ########
   # Server 
   ########
@@ -59,6 +63,14 @@ defmodule SeniorSanta.Reservations.Services.LetterBlocker do
     else
       {:noreply, state}
     end
+  end
+
+  def handle_cast({:unblock_all_user_timers, socket_id}, state) do
+    state
+    |> Enum.filter(fn {_k, %{owner: owner}} -> owner == socket_id end)
+    |> Enum.reduce(state, fn {k, _v}, acc -> Map.delete(acc, k) end)
+    |> tap(&broadcast_state(&1))
+    |> then(&{:noreply, &1})
   end
 
   def handle_info({:decrement, letter_id}, state) do

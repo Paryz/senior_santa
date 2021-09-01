@@ -57,15 +57,20 @@ defmodule SeniorSantaWeb.LetterLive.Index do
   end
 
   def handle_event("save", %{"reservation" => params}, socket) do
-    with {:ok, letter} <- Services.Letter.reserve(params) do
+    handle_event("unblock", params, socket)
+
+    with {:ok, _letter} <- Services.Letter.reserve(params) do
       broadcast(:letter, [:letter, :updated])
-      {:noreply, assign(socket, :letter, letter)}
+      {:noreply, socket}
     end
   end
 
   def handle_info({SeniorSantaWeb.LetterLive.Index, [:letter, _], _}, socket) do
     with {:ok, letters} <- fetch_all_letters(%{"location" => socket.assigns[:letter].location}) do
-      {:noreply, assign(socket, :letters, letters)}
+      socket
+      |> assign(:letters, letters)
+      |> assign(:letter, List.first(letters))
+      |> then(&{:noreply, &1})
     end
   end
 
@@ -77,6 +82,10 @@ defmodule SeniorSantaWeb.LetterLive.Index do
 
   def handle_info({SeniorSantaWeb.LetterLive.Index, [:letter_blocker, _], _}, socket) do
     {:noreply, assign(socket, :letter_blocker, Services.LetterBlocker.get_state())}
+  end
+
+  def terminate(_reason, socket) do
+    Services.LetterBlocker.unblock_all_user_timers(socket.id)
   end
 
   defp fetch_all_letters(params) do
