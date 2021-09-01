@@ -9,7 +9,7 @@ defmodule SeniorSanta.Factory do
       location: "Warszawa",
       content: "filename.jpeg",
       author: "Helena",
-      status: :aktywny
+      status: :active
     }
   end
 

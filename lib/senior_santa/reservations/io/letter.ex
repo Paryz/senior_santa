@@ -1,5 +1,5 @@
 defmodule SeniorSanta.Reservations.IO.Letter do
-  import Ecto.Query, only: [order_by: 2, where: 2]
+  import Ecto.Query, only: [where: 2]
   alias Ecto.Multi
 
   alias FE.Result
@@ -14,8 +14,7 @@ defmodule SeniorSanta.Reservations.IO.Letter do
   def get_all_by_location(location) do
     Schemas.Letter
     |> where(location: ^location)
-    |> where(status: :aktywny)
-    |> order_by(asc: :status)
+    |> where(status: :active)
     |> Repo.all()
     |> Enum.map(fn letter -> letter |> Models.Letter.new() |> Result.unwrap!() end)
     |> Result.ok()
@@ -48,7 +47,7 @@ defmodule SeniorSanta.Reservations.IO.Letter do
     end)
     |> Multi.run(:reserve_letter, fn _, %{get_letter: letter} ->
       letter
-      |> update_status(:zarezerwowany)
+      |> update_status(:reserved)
       |> Result.and_then(&Models.Letter.new/1)
     end)
     |> Repo.transaction()
@@ -56,7 +55,7 @@ defmodule SeniorSanta.Reservations.IO.Letter do
     |> Result.map(fn %{reserve_letter: letter} -> letter end)
   end
 
-  @spec update_status(Models.Letter.t(), :zarezerwowany) :: Result.t(Models.Letter.t())
+  @spec update_status(Models.Letter.t(), :reserved) :: Result.t(Models.Letter.t())
   def update_status(old_letter, status) do
     old_letter
     |> Models.Letter.update_status(status)

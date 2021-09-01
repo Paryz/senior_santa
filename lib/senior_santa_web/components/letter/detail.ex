@@ -21,7 +21,7 @@ defmodule SeniorSantaWeb.Components.Letter.Detail do
             <div class="fixed z-1 w-full h-full top-0 left-0 flex items-center justify-center">
               <div class="fixed w-full h-full bg-gray-500 opacity-50"></div>
               <div class="relative z-2 w-7/12 max-w-3xl bg-white p-8 mx-auto rounded-xl flex flex-col items-center" >
-                <.form let={f} for={@reservation} url="#" phx_submit={:save} class="w-full max-w-lg">
+                <.form let={f} for={@reservation} url="#" phx_submit="save" class="w-full max-w-lg">
                   <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                       <%= hidden_input f, :letter_id, value: @letter.id %>
