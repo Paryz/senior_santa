@@ -32,12 +32,12 @@ defmodule SeniorSanta.Reservations.Models.Letter do
     end)
   end
 
-  @spec update_status(t(), :zarezerwowany) :: Result.t(t())
+  @spec update_status(t(), :reserved) :: Result.t(t())
   def update_status(letter, new_status) do
     letter |> Map.put(:status, new_status) |> new()
   end
 
-  @valid_statuses [:zarezerwowany, :aktywny]
+  @valid_statuses [:reserved, :active]
   defp status_parser() do
     fn
       status when is_atom(status) and status in @valid_statuses ->

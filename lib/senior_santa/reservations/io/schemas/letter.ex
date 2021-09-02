@@ -8,7 +8,7 @@ defmodule SeniorSanta.Reservations.IO.Schemas.Letter do
     field(:location, :string)
     field(:content, :string)
     field(:author, :string)
-    field(:status, Ecto.Enum, values: [:aktywny, :zarezerwowany])
+    field(:status, Ecto.Enum, values: [:active, :reserved])
 
     has_one(:reservation, Schemas.Reservation)
 

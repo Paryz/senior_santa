@@ -65,7 +65,7 @@ defmodule SeniorSanta.Reservations.Services.LetterTest do
         "phone" => "+48555444333"
       }
 
-      assert {:ok, %Models.Letter{status: :zarezerwowany}} = Letter.reserve(params)
+      assert {:ok, %Models.Letter{status: :reserved}} = Letter.reserve(params)
       assert %Schemas.User{id: user_id} = Repo.get_by(Schemas.User, email: "john@doe.com")
       assert %Schemas.Reservation{} = Repo.get_by(Schemas.Reservation, user_id: user_id)
     end

@@ -15,6 +15,7 @@ defmodule SeniorSanta.Application do
       {Phoenix.PubSub, name: SeniorSanta.PubSub},
       # Start the Endpoint (http/https)
       SeniorSantaWeb.Endpoint,
+      SeniorSanta.Reservations.Services.LetterBlocker,
       # Start a worker by calling: SeniorSanta.Worker.start_link(arg)
       # {SeniorSanta.Worker, arg}
       {Oban, oban_config()}
