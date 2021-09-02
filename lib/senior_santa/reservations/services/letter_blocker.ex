@@ -67,8 +67,11 @@ defmodule SeniorSanta.Reservations.Services.LetterBlocker do
 
   def handle_cast({:unblock_all_user_timers, socket_id}, state) do
     state
-    |> Enum.filter(fn {_k, %{owner: owner}} -> owner == socket_id end)
-    |> Enum.reduce(state, fn {k, _v}, acc -> Map.delete(acc, k) end)
+    |> Enum.find(fn {_k, %{owner: owner}} -> owner == socket_id end)
+    |> case do
+      nil -> state
+      {k, _} -> Map.delete(state, k)
+    end
     |> tap(&broadcast_state(&1))
     |> then(&{:noreply, &1})
   end
