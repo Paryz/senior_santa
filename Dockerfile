@@ -27,6 +27,7 @@ COPY mix.lock .
 # Fetch the application dependencies and build the application
 ENV DATABASE_URL= \
     SECRET_KEY_BASE=
+RUN npm install --prefix ./assets
 RUN mix deps.get
 RUN mix deps.compile
 RUN mix assets.deploy
