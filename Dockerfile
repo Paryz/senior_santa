@@ -5,7 +5,7 @@ ENV MIX_ENV=prod \
     LANG=C.UTF-8
 
 RUN apk add --update git && \
-    apk add build-base nodejs npm postcss-cli bash \
+    apk add build-essential nodejs npm postcss-cli bash \
     rm -rf /var/cache/apk/* 
 
 # Install hex and rebar
