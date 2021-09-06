@@ -6,7 +6,7 @@ ENV MIX_ENV=prod \
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN apt-get update && apt-get install -y git build-essential bash make gcc curl postgresql-client-common
+RUN apt-get update && apt-get install -y git build-essential bash make gcc curl 
 RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
 RUN apt-get -y install nodejs 
 
@@ -37,6 +37,8 @@ RUN mix release
 
 # ---- Application Stage ----
 FROM debian:bullseye-slim AS app
+
+RUN apt-get update && apt-get install -y openssl postgresql-client-common
 
 ENV LANG=C.UTF-8
 
