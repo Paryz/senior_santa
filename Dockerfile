@@ -5,7 +5,7 @@ ENV MIX_ENV=prod \
     LANG=C.UTF-8
 
 RUN apk add --update git && \
-    apk add build-essential nodejs npm postcss-cli bash make gcc-multilib lib32stdc++6 \
+    apk add build-essential nodejs npm postcss-cli bash make openssl libgcc libstdc++ ncurses-libs\
     rm -rf /var/cache/apk/* 
 
 # Install hex and rebar
