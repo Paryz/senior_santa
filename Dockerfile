@@ -1,12 +1,14 @@
-FROM elixir:alpine AS app_builder
+FROM elixir:slim AS app_builder
 
 # Set environment variables for building the application
 ENV MIX_ENV=prod \
     LANG=C.UTF-8
 
-RUN apk add --update git && \
-    apk add build-essential nodejs npm postcss-cli bash make openssl libgcc libstdc++ ncurses-libs\
-    rm -rf /var/cache/apk/* 
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN apt-get update && apt-get install -y git build-essential bash make gcc curl
+RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
+RUN apt-get -y install nodejs 
 
 # Install hex and rebar
 RUN mix local.hex --force && \
@@ -34,21 +36,19 @@ RUN mix assets.deploy
 RUN mix release
 
 # ---- Application Stage ----
-FROM alpine AS app
+FROM debian:bullseye-slim AS app
 
 ENV LANG=C.UTF-8
 
-# Install openssl
-RUN apk add --update openssl ncurses-libs postgresql-client && \
-    rm -rf /var/cache/apk/*
-
 # Copy over the build artifact from the previous step and create a non root user
-RUN adduser -D -h /home/app app
-WORKDIR /home/app
-COPY --from=app_builder /app/_build .
-RUN chown -R app: ./prod
-USER app
+WORKDIR /app
+
+RUN adduser --disabled-login -u 1000 app
+COPY --from=app_builder --chown=app:app /app/_build/ .
 
 COPY migrate_and_run.sh .
+RUN chmod +x migrate_and_run.sh
 
-CMD ["sh", "migrate_and_run.sh"]
+ENV HOME=/app
+
+ENTRYPOINT ./migrate_and_run.sh
