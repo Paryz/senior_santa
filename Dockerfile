@@ -6,7 +6,7 @@ ENV MIX_ENV=prod \
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN apt-get update && apt-get install -y git build-essential bash make gcc curl
+RUN apt-get update && apt-get install -y git build-essential bash make gcc curl postgresql-client-9.6
 RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
 RUN apt-get -y install nodejs 
 
