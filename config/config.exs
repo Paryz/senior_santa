@@ -41,11 +41,6 @@ config :senior_santa, SeniorSanta.Mailer,
   adapter: Bamboo.MandrillAdapter,
   api_key: "my_api_key"
 
-config :kaffy,
-  otp_app: :senior_santa,
-  ecto_repo: SeniorSanta.Repo,
-  router: SeniorSantaWeb.Router
-
 config :senior_santa, Oban,
   repo: SeniorSanta.Repo,
   queues: [default: 10, mailers: 20, events: 50, low: 5],

@@ -1,7 +1,6 @@
 defmodule SeniorSantaWeb.Router do
   use SeniorSantaWeb, :router
   # , scope: "/admin", pipe_through: [:some_plug, :authenticate]
-  use Kaffy.Routes
 
   pipeline :browser do
     plug :accepts, ["html"]

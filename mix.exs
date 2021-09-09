@@ -32,8 +32,6 @@ defmodule SeniorSanta.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      # Kaffy administration
-      {:kaffy, "~> 0.9.0"},
       {:phoenix, "~> 1.6.0-rc.0", override: true},
       {:phoenix_ecto, "~> 4.1"},
       {:phoenix_html, "~> 3.0", override: true},
